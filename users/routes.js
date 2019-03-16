@@ -6,13 +6,13 @@ const router = new Router()
 
 router.get('/users', (req, res, next) => {
     User
-      .findAll()
-      .then(users => {
-        res.send({ users })
-      })
-      .catch(error => next(error))
-  })
-  
+        .findAll()
+        .then(users => {
+            res.status(200).send({ users })
+        })
+        .catch(error => next(error))
+})
+
 router.post('/users', (req, res, next) => {
     const user = {
         email: req.body.email,
@@ -20,18 +20,18 @@ router.post('/users', (req, res, next) => {
         password_confirmation: bcrypt.hashSync(
             req.body.password_confirmation, 10)
     }
-
-  User
-    .create(user)
-    .then(user => {
-      if (!user) {
-        return res.status(404).send({
-          message: `User does not exist`
+    
+    User
+        .create(user)
+        .then(user => {
+            if (!user) {
+                return res.status(404).send({
+                    message: `User does not exist`
+                })
+            }
+            return res.status(201).send(user)
         })
-      }
-      return res.status(201).send(user)
-    })
-    .catch(error => next(error))
+        .catch(error => next(error))
 })
 
 module.exports = router
