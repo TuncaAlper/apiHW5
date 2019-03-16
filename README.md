@@ -40,8 +40,3 @@ Make sure to return the right one of these status codes: 200 (ok), 201 (created)
   * `GET /artists`: A user should be able to retrieve a list of artists, with all their songs (from the different playlists).
   * `PUT /playlists/:id/songs/:id`: A user should be able to change song information, even move it to another playlist.
   * `DELETE /playlists/:id/songs/:id`: A user should be able to delete songs from their playlist.
-
-## Handing In
-
-  * Deploy to Heroku
-  * Send the link to your Heroku app, as well as the link to your Github repo to teachers@codaisseur.com
