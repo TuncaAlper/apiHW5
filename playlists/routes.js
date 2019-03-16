@@ -2,14 +2,10 @@ const { Router } = require('express')
 const Playlist = require('./model')
 const router = new Router()
 const auth = require('../auth/middleware')
-const User = require('../users/model')
 const Song = require('../songs/model')
 
 
 router.post('/playlists' , auth, (req, res, next) => {
-    // console.log(req.body, "HEYETET")
-    // console.log(User, "ASSS")
-    // console.log(req.user.id, "USERR")
     
     Playlist
         .create({
@@ -17,7 +13,7 @@ router.post('/playlists' , auth, (req, res, next) => {
             userId: req.user.id
         })
         .then(playlist => {
-            if (!playlist) {
+            if (!playlist ) {
                 return res.status(404).send({
                     message: `Playlist does not exist`
                 })
@@ -28,7 +24,6 @@ router.post('/playlists' , auth, (req, res, next) => {
 })
 
 router.get('/playlists' ,  auth, (req, res, next) => {
-    // console.log(req.user,"HEYY")
     Playlist
         .findAll()
         .filter(playlists => playlists.userId === req.user.id)
@@ -42,12 +37,10 @@ router.get('/playlists' ,  auth, (req, res, next) => {
 })
 
 router.get('/playlists/:id' , auth, (req, res, next) => {
-    // console.log(req.params, "PARAMS")
     
     Playlist
         .findByPk(req.params.id)
-        .then(playlist => {
-            // console.log(playlist,"USERRR")        
+        .then(playlist => {      
             if (!playlist || (playlist.userId !== req.user.id)) {
                 return res.status(404).send({
                     message: `Playlist does not exist`
@@ -73,7 +66,7 @@ router.delete('/playlists/:id', auth, (req, res, next) => {
     Playlist
         .findByPk(req.params.id)
         .then(playlist => {
-            if (!playlist) {
+            if (!playlist || (playlist.userId !== req.user.id)) {
                 return res.status(404).send({
                     message: `Playlist does not exist`
                 })
@@ -95,7 +88,5 @@ router.delete('/playlists/:id', auth, (req, res, next) => {
         .catch(error => next(error))
 })
 
+
 module.exports = router
-
-
-// return res.status(200).send(playlist)

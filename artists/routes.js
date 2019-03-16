@@ -21,26 +21,7 @@ router.get('/artists', auth, (req, res, next) => {
         .catch(error => next(error))
 })
 
-// router.post('/users', (req, res, next) => {
-//     const user = {
-//         email: req.body.email,
-//         password: bcrypt.hashSync(req.body.password, 10),
-//         password_confirmation: bcrypt.hashSync(
-//             req.body.password_confirmation, 10)
-//     }
-    
-//     User
-//         .create(user)
-//         .then(user => {
-//             if (!user) {
-//                 return res.status(500).send({
-//                     message: `Something went wrong`
-//                 })
-//             }
-//             return res.status(201).send(user)
-//         })
-//         .catch(error => next(error))
-// })
+
 
 module.exports = router
 

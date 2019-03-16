@@ -16,7 +16,6 @@ router.post('/tokens', (req, res) => {
         })
     }
     else {
-        // 1. find user based on email address
         User
             .findOne({
                 where: {
@@ -28,12 +27,7 @@ router.post('/tokens', (req, res) => {
                     res.status(400).send({
                         message: 'User with that email does not exist'
                     })
-                } else
-
-                    // 2. use bcrypt.compareSync to check the password against the stored hash
-                    if (bcrypt.compareSync(req.body.password, entity.password)) {
-
-                        // 3. if the password is correct, return a JWT with the userId of the user (user.id)
+                } else if (bcrypt.compareSync(req.body.password, entity.password)) {
                         res.send({
                             token: toJWT({ userId: entity.id })
                         })
@@ -51,7 +45,6 @@ router.post('/tokens', (req, res) => {
                 })
             })
     }
-
 })
 
 router.get('/secret-endpoint', auth, (req, res) => {

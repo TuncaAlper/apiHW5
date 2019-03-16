@@ -7,9 +7,6 @@ function auth(req, res, next) {
         try {
             const data = toData(auth[1])
             
-            // console.log("userId", data)
-            // console.log("User", User)
-
             User
                 .findByPk(data.userId)
                 .then(user => {
@@ -34,5 +31,3 @@ function auth(req, res, next) {
 }
 
 module.exports = auth
-
-// (item) => item.id === 
