@@ -10,8 +10,8 @@ const Playlist = sequelize.define('playlists', {
         allowNull: false
     },
     userId: {
-        type:Sequelize.INTEGER,
-        field: 'user_id'
+        type: Sequelize.INTEGER,
+        field: 'user_id',
     }
 }, {
         timestamps: false,

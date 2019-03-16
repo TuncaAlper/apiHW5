@@ -5,9 +5,17 @@ const auth = require('../auth/middleware')
 const User = require('../users/model')
 const Song = require('../songs/model')
 
-router.post('/playlists' , (req, res, next) => {
+
+router.post('/playlists' , auth, (req, res, next) => {
+    // console.log(req.body, "HEYETET")
+    // console.log(User, "ASSS")
+    // console.log(req.user.id, "USERR")
+    
     Playlist
-        .create({...req.body,userId})
+        .create({
+            name: req.body.name, 
+            userId: req.user.id
+        })
         .then(playlist => {
             if (!playlist) {
                 return res.status(404).send({
@@ -19,7 +27,7 @@ router.post('/playlists' , (req, res, next) => {
         .catch(error => next(error))
 })
 
-router.get('/playlists' ,  (req, res, next) => {
+router.get('/playlists' ,  auth, (req, res, next) => {
     // console.log(req.user,"HEYY")
     Playlist
         .findAll()
@@ -33,7 +41,7 @@ router.get('/playlists' ,  (req, res, next) => {
         .catch(error => next(error))
 })
 
-router.get('/playlists/:id' , (req, res, next) => {
+router.get('/playlists/:id' , auth, (req, res, next) => {
     // console.log(req.params, "PARAMS")
     
     Playlist
@@ -61,9 +69,9 @@ router.get('/playlists/:id' , (req, res, next) => {
         .catch(error => next(error))
 })
 
-router.delete('/playlists/:id', (req, res, next) => {
+router.delete('/playlists/:id', auth, (req, res, next) => {
     Playlist
-        .findById(req.params.id)
+        .findByPk(req.params.id)
         .then(playlist => {
             if (!playlist) {
                 return res.status(404).send({
