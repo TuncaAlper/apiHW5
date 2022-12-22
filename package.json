@@ -15,7 +15,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "heroku": "^7.22.7",
-    "jsonwebtoken": "^8.5.0",
+    "jsonwebtoken": "^9.0.0",
     "lodash.template": "^4.5.0",
     "nodemon": "^1.18.10",
     "pg": "^6.4.2",
